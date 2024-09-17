@@ -58,7 +58,8 @@ ON I.VendorID = V.VendorID
 GROUP BY VendorState, VendorCity
 ORDER BY VENDORSTATE, VendorCity;
 
---A summary query that limits the groups to those with two or more invoicesSELECT VendorCity, VendorState, Count(*) AS InvoiceQty,
+--A summary query that limits the groups to those with two or more invoices
+SELECT VendorCity, VendorState, Count(*) AS InvoiceQty,
 AVG(InvoiceTotal) AS InvoiceAvg
 FROM invoices I
 join Vendors V
@@ -118,4 +119,50 @@ SELECT VendorID, COUNT(*) AS InvoiceCount, SUM(InvoiceTotal) AS InvoiceTotal
 	FROM Invoices
 GROUP BY CUBE(VendorID);
 
-SELECT VendorState, VendorCity, COUNT(*) AS QtyVendors   FROM Vendors WHERE VendorState IN ('IA', 'NJ')  GROUP BY CUBE (VendorState, VendorCity)  ORDER BY VendorState DESC, VendorCity DESC;
+SELECT VendorState, VendorCity, COUNT(*) AS QtyVendors 
+  FROM Vendors
+ WHERE VendorState IN ('IA', 'NJ') 
+ GROUP BY CUBE (VendorState, VendorCity) 
+ ORDER BY VendorState DESC, VendorCity DESC;
+
+ --pg.156 Exercises
+
+ --Exercise 1
+ SELECT VendorID, SUM(PaymentTotal) AS PaymentSum
+	FROM Invoices
+	GROUP BY VendorID;
+
+-- Exercise 2
+SELECT VendorID, SUM(PaymentTotal) AS PaymentSum
+FROM Invoices
+GROUP BY VendorID
+ORDER BY PaymentSum DESC;
+
+--Exercise 3
+SELECT VendorName, Count(*) AS InvoiceCount, SUM(InvoiceTotal) AS InvoiceSUM
+	FROM Vendors V
+	JOIN Invoices I
+	ON I.VendorID = V.VendorID
+	GROUP BY VendorName
+	ORDER BY InvoiceCount DESC;
+
+--Exercise 4
+SELECT AccountDescription, COUNT(*) AS LineItemCount, SUM(InvoiceLineItemAmount) AS LineItemSum
+ FROM GLAccounts GLA
+ JOIN InvoiceLineItems ILI ON GLA.AccountNo = ILI.AccountNo
+ GROUP BY AccountDescription
+ HAVING Count(*) > 1 
+ ORDER BY LineItemCount DESC;
+ 
+ --Exercise 5
+ SELECT  AccountDescription, MAX(InvoiceDate) AS LatestInvoiceDate, COUNT(*) AS LineItemCount, SUM(InvoiceLineItemAmount) AS LineItemSum
+ FROM GLAccounts GLA
+ JOIN InvoiceLineItems ILI ON GLA.AccountNo = ILI.AccountNo
+ JOIN Invoices I ON ILI.InvoiceID = I.InvoiceID
+ WHERE InvoiceDate BETWEEN '2022-10-01' AND '2023-12-31'
+ GROUP BY AccountDescription, InvoiceDate
+ HAVING Count(*) > 1 
+ ORDER BY InvoiceDate DESC;
+
+
+ 
