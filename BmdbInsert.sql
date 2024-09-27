@@ -37,3 +37,8 @@ INSERT INTO Credit (MovieId, ActorId, Role) VALUES
 (7, 10, 'Forrest Gump')
 ;
 
+
+INSERT INTO [User] (Username, Password, FirstName, LastName, PhoneNumber, Email)
+VALUES 
+    ('jsmith123', 'hashed_password_here', 'John', 'Smith', '5551234567', 'john.smith@email.com'),
+    ('mjohnson85', 'hashed_password_here', 'Mary', 'Johnson', '5559876543', 'mary.johnson@email.com');

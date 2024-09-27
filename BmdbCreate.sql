@@ -46,3 +46,13 @@ CREATE TABLE Credit (
 	FOREIGN KEY (ActorId) REFERENCES Actor(Id),
 	CONSTRAINT UQ_Credit_Movie_Actor UNIQUE (ActorId ,MovieId)
 	);
+
+	CREATE TABLE [User] (
+    Id              INT PRIMARY KEY IDENTITY(1,1),
+    Username        VARCHAR(20) NOT NULL UNIQUE,
+    Password        VARCHAR(255) NOT NULL, -- Increased length for hashed passwords
+    FirstName       VARCHAR(20) NOT NULL,
+    LastName        VARCHAR(20) NOT NULL,
+    PhoneNumber     VARCHAR(15) NOT NULL, -- Increased slightly for international numbers
+    Email           VARCHAR(75) NOT NULL
+);
