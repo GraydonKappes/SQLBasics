@@ -1,4 +1,4 @@
-USE BMDB
+USE BMDB;
 
 -- Insert sample movies
 INSERT INTO Movie (Title, Year, Rating, Director) VALUES
@@ -33,12 +33,11 @@ INSERT INTO Credit (MovieId, ActorId, Role) VALUES
 (3, 6, 'Mia Wallace'),
 (4, 7, 'Bruce Wayne / Batman'),
 (4, 8, 'Joker'),
-(5, 10, 'Luke Skywalker'),
-(7, 10, 'Forrest Gump')
-;
+(5, 9, 'Luke Skywalker'),
+(7, 10, 'Forrest Gump');
 
-
-INSERT INTO [User] (Username, Password, FirstName, LastName, PhoneNumber, Email)
+-- Insert sample users
+INSERT INTO UserAccount (Username, Password, FirstName, LastName, PhoneNumber, Email)
 VALUES 
     ('jsmith123', 'hashed_password_here', 'John', 'Smith', '5551234567', 'john.smith@email.com'),
     ('mjohnson85', 'hashed_password_here', 'Mary', 'Johnson', '5559876543', 'mary.johnson@email.com');
